@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.2.2/font/bootstrap-icons.css">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            
+            font-family:"poppins",sans-serif;
+            
+        }
+        body{
+            width: 100vw;
+            height: 100vp;
+            background: rgb(160,58,180);
+            background: linear-gradient(90deg, rgba(160,58,180,1) 49%, rgba(252,176,69,1) 100%);
+            background-attachment: fixed;
+            display: flex;
+        }
+        #form{
+            width: 400px;
+            height: 100%;
+            margin:50px 30px 0px 60px;
+            background-color: whitesmoke;
+            border-radius: 5px;
+            padding: 30px;
+        
+        }
+        h3{
+            text-align: center;
+            color:black;
+        }
+        #form button  {
+            background-color: blueviolet;
+            color: white;
+            border: 1px solid blueviolet;
+            border-radius: 20px;
+            padding: 5px;
+            margin:20px 0px;
+            cursor: pointer;
+            font-size: 20px;
+            width: 100%;
+        }
+        /* #signup  {
+            background-color: blueviolet;
+            color: white;
+            border: 1px solid blueviolet;
+            border-radius: 20px;
+            padding: 5px;
+            margin:20px 0px;
+            cursor: pointer;
+            align-items: center;
+            font-size: 20px;
+            width: 30%;
+            margin-left: 35%;
+        } */
+        .form-group{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            border-radius: 5px;
+            font-size: 20px;
+            margin-top: 5px;
+            padding: 5px;
+            border:1px solid  #c76d84;
+        }
+        .form-group input:focus{
+            outline:#c76d84;
+            background: rgb(160,58,180);
+            background: linear-gradient(90deg, rgba(160,58,180,1) 49%, rgba(252,176,69,1) 100%);
+        }
+        input[type=text],input[type=password]{
+            width:100%;
+            padding: 5px;
+            margin:8px 0;
+            box-sizing:border-box;
+            border:none;
+            border-bottom: 2px solid #c76d84;
+        }
+        .form-group .error{
+            color:red;
+            font-size:16px;
+            margin-top:5px;
+        }
+        .form-group.success input{
+            border-color: green;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="Login.html"id ="form">
+            <h3>Don't have a Account</h3>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text"name="username"id="username">
+                <div class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password"name="password"id="password">
+                <div class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="cpassword">Confirm Password</label>
+                <input type="password"name="cpassword"id="cpassword">
+                <div class="error"></div>
+            </div>
+            <button type="submit"id="signup">SingUP</button>
+            <button type="submit" id="login">Login</button>
+            
+        </form>
+    </div>
+    <script>
+        const form=document.querySelector('#form')
+        const username=document.querySelector('#username')
+        const password=document.querySelector('#password')
+        const cpassword=document.querySelector('#cpassword')
+        form.addEventListener('submit',(e)=>{
+            if(!validateInputs()){
+                e.preventDefault();
+            }
+        })
+        function validateInputs(){
+            const userVal=username.value.trim();
+            const pwdVal=password.value.trim();
+            const cpwdVal=cpassword.value.trim();
+            let success=true;
+            if(userVal===''){
+                success=false;
+                setError(username,'username is required')
+            }
+            else{
+                setSuccess(username)
+            }
+            if(pwdVal===''){
+                success=false;
+                setError(password,'password is required')
+            }
+            else if(pwdVal.length<8){
+                success=false;
+                setError(password,'password must be atleast 8 character')
+            }
+            else{
+                setSuccess(password)
+            }
+            if(cpwdVal===''){
+                success=false;
+                setError(cpassword,'Confirm password is required')
+            }
+            else if(pwdVal!== pwdVal){
+                success=false;
+                setError(cpassword,'Confirm password does not match')
+            }
+            else{
+                setSuccess(cpassword)
+            }
+            
+
+            return success;
+        }//element-password,msg-pwd is req
+        function setError(elemnet,message){
+            const formGroup =elemnet.parentElement;
+            const errorElement = formGroup.querySelector('.error')
+            errorElement.innerText=message;
+            formGroup.classList.add('error')
+            formGroup.classList.remove('success')
+        }
+        function setSuccess(elemnet){
+            const formGroup =elemnet.parentElement;
+            const errorElement = formGroup.querySelector('.error')
+            errorElement.innerText='';
+            formGroup.classList.add('success')
+            formGroup.classList.remove('error')
+        }
+
+    </script>
+</body>
+</html>
